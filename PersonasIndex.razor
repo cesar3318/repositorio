@@ -1,0 +1,80 @@
+﻿@page "/personas"
+@rendermode InteractiveServer
+@inject NavigationManager _navigator
+@inject IRepositorioPersonas _repositorio;
+<h3>Personas</h3>
+<a class="btn btn-success" href="personas/nueva">Agregar persona</a>
+@if (_personas == null)
+{
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Cargando ....</span>
+
+	</div>
+}
+else if(_personas.Count == 0)
+{
+	<h3>No existen personas registradas</h3>
+}
+else
+{
+	<table class="table table-striped">
+		<thread>
+			<tr>
+				<th>Nombre</th>
+				<th>Correo</th>
+				<th>Telefono</th>
+				<th>Edad</th>
+				<th>Sexo</th>
+				<th>Acciones</th>
+			</tr>
+		</thread>
+		<tbody>
+			@foreach(Persona persona in _personas)
+			{
+				<tr>
+					<td>@persona.Nombre</td>
+					<td>@persona.Correo</td>
+					<td>@persona.Telefono</td>
+					<td>@persona.Edad</td>
+					<td>@persona.Sexo</td>
+					<td>
+						<button class="btn btn-sm" title="Modificar" @onclick="()=>Modificar(persona.Id)">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil">
+								<path d="M 10 10 L 90 90" stroke="black" stroke-width="2" fill="none" />
+
+							</svg>
+						</button>
+
+						<button class="btn btn-sm" title="Eliminar" @onclick="()=>Eliminar(persona)">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3">
+								<path d="M 10 10 L 90 90" stroke="black" stroke-width="2" fill="none" />
+
+							</svg>
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+<h3>Personas</h3>
+
+@code {
+
+	private List<Persona>? _personas;
+	protected override async Task OnInitializedAsync()
+	{
+		_personas = await _repositorio.GetAll();
+	}
+	private async void Eliminar(Persona persona)
+	{
+		await _repositorio.Delete(persona.Id);
+		_personas!.Remove(persona);
+		StateHasChanged();
+	}
+	private void Modificar(int id)
+	{
+		_navigator.NavigateTo($"/personas/editar/{id}");
+	}
+
+}
