@@ -1,4 +1,4 @@
-﻿using Catalogo.Modelo;
+using Catalogo.Modelo;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Repositorio
@@ -36,14 +36,14 @@ namespace Catalogo.Repositorio
 			return await _context.Personas.ToListAsync();
 		}
 
-		public async Task<List<Clasificacion>> GetClasificaciones()
+		public async Task<List<Visual>> GetVisual()
 		{
-			return await _context.Clasificaciones.ToListAsync();
+			return await _context.Visualizaciones.ToListAsync();
 		}
 
-        public async Task<List<Habito>> GetHabitos()
+        public async Task<List<Contenido>> GetContenido()
         {
-            return await _context.Habitos.ToListAsync();
+            return await _context.Contenidos.ToListAsync();
         }
         public async Task Update(int id, Persona persona)
 		{
@@ -64,3 +64,4 @@ namespace Catalogo.Repositorio
 
 	}
 }
+
