@@ -1,4 +1,4 @@
-﻿using Catalogo.Modelo;
+using Catalogo.Modelo;
 
 namespace Catalogo.Repositorio
 {
@@ -6,9 +6,9 @@ namespace Catalogo.Repositorio
 	{
 		Task<List<Persona>> GetAll();
 		Task<Persona?> Get(int id);
-		Task<List<Clasificacion>> GetClasificaciones();
+		Task<List<Visual>> GetVisual();
 
-		Task<List<Habito>> GetHabitos();
+		Task<List<Contenido>> GetContenido();
 		Task<Persona> Add(Persona persona);
 		Task Update(int id, Persona persona);
 		Task Delete(int id);
